@@ -55,8 +55,9 @@ text = f"Hello {user_first_name} 👋\n\nPlease choose a plan:\n\n" \
            "👑 *Mines King* — Lifetime access, 45 sureshot signals per day\n\n" \
            f"✨ *{user_first_name}*, we recommend choosing the *Mines King* plan for best results!"
 
-    await update.message.reply_text(
-    text,    
+  await update.message.reply_text(
+    text,  # <<< 4 spaces se indent karo (standard Python style)
+)
 )
         parse_mode="Markdown",
         reply_markup=InlineKeyboardMarkup(keyboard)
