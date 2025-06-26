@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
 # Constants
-PASSKEY_BASIC = "AWhehYh&bsbITY72"
-PASSKEY_KING = "ZHwy^5AyiOUE920GG"
+PASSKEY_BASIC = "AqWSedrFtgYHUjIkOlP"
+PASSKEY_KING = "ZawEDxcftGvYUJnHy"
 SELECT_PLAN, ENTER_PASSKEY, ENTER_CLIENT_SEED = range(3)
 
 # In-memory user state
