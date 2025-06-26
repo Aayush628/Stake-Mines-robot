@@ -67,10 +67,8 @@ async def plan_selected(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_states[user_id] = {"plan": plan}
 
     await query.message.reply_text(
-    (
-        "🔐 Please enter your passkey.\n\n"
-        "ℹ️ *If you don't have a passkey, contact the Admin: @Stake_Mines_God*"
-    ),
+    "🔐 Please enter your passkey.\n\n"
+    "ℹ️ *If you don't have a passkey, contact the Admin: @Stake_Mines_God*",
     parse_mode="Markdown"
 )
     )
