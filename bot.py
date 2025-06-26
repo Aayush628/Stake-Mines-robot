@@ -56,7 +56,8 @@ text = f"Hello {user_first_name} 👋\n\nPlease choose a plan:\n\n" \
            f"✨ *{user_first_name}*, we recommend choosing the *Mines King* plan for best results!"
 
     await update.message.reply_text(
-        text,
+    text,    
+)
         parse_mode="Markdown",
         reply_markup=InlineKeyboardMarkup(keyboard)
     )
