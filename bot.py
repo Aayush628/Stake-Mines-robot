@@ -43,6 +43,11 @@ def generate_prediction_image(safe_tiles):
 
     return img
 
+def get_safe_tiles(client_seed: str):
+    hashed = hashlib.sha256(client_seed.encode()).hexdigest()
+    random.seed(int(hashed, 16))
+    return sorted(random.sample(range(25), 5))
+
 # --- Handlers ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_first_name = update.effective_user.first_name
@@ -50,13 +55,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("💎 Mines Basic", callback_data="basic")],
         [InlineKeyboardButton("👑 Mines King", callback_data="king")]
     ]
-    text = f"Hello {user_first_name} 👋\n\nPlease choose a plan:\n\n"            "💎 *Mines Basic* — Lifetime access, 20 sureshot signals per day\n"            "👑 *Mines King* — Lifetime access, 45 sureshot signals per day\n\n"            f"✨ *{user_first_name}*, we recommend choosing the *Mines King* plan for best results!"
+    text = f"Hello {user_first_name} 👋\n\nPlease choose a plan:\n\n" \
+           "💎 *Mines Basic* — Lifetime access, 20 sureshot signals per day\n" \
+           "👑 *Mines King* — Lifetime access, 45 sureshot signals per day\n\n" \
+           f"✨ *{user_first_name}*, we recommend choosing the *Mines King* plan for best results!"
 
     await update.message.reply_text(
         text,
         parse_mode="Markdown",
         reply_markup=InlineKeyboardMarkup(keyboard)
     )
+    return SELECT_PLAN
 
 async def plan_selected(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
@@ -67,10 +76,9 @@ async def plan_selected(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_states[user_id] = {"plan": plan}
 
     await query.message.reply_text(
-    "🔐 Please enter your passkey.\n\n"
-    "ℹ️ *If you don't have a passkey, contact the Admin: @Stake_Mines_God*",
-    parse_mode="Markdown"
-    
+        "🔐 Please enter your passkey.\n\n"
+        "ℹ️ *If you don't have a passkey, contact the Admin: @Stake_Mines_God*",
+        parse_mode="Markdown"
     )
     return ENTER_PASSKEY
 
@@ -85,21 +93,13 @@ async def handle_passkey(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("❌ Invalid passkey. Please try again.")
         return ENTER_PASSKEY
 
-    
-await update.message.reply_text(
-    "✅ Passkey verified! \
-    Aapka account verify ho gaya hai");
-Please enter your client seed.
-
-"\u26A0\uFE0F Disclaimer: Use this only with 3 mines."
+    await update.message.reply_text(
+        "✅ Passkey verified!\nAapka account verify ho gaya hai\n\n"
+        "Please enter your client seed.\n\n"
+        "\u26A0\uFE0F Disclaimer: Use this only with 3 mines.",
         parse_mode="Markdown"
     )
     return ENTER_CLIENT_SEED
-
-def get_safe_tiles(client_seed: str):
-    hashed = hashlib.sha256(client_seed.encode()).hexdigest()
-    random.seed(int(hashed, 16))
-    return sorted(random.sample(range(25), 5))
 
 async def handle_client_seed(update: Update, context: ContextTypes.DEFAULT_TYPE):
     client_seed = update.message.text.strip()
@@ -112,9 +112,7 @@ async def handle_client_seed(update: Update, context: ContextTypes.DEFAULT_TYPE)
     keyboard = [[InlineKeyboardButton("🔄 Next Signal", callback_data="next_signal")]]
     await update.message.reply_photo(
         photo=open(bio, "rb"),
-        caption="✅ Here is your signal.
-
-Click below for the next one.",
+        caption="✅ Here is your signal.\n\nClick below for the next one.",
         reply_markup=InlineKeyboardMarkup(keyboard)
     )
     return ENTER_CLIENT_SEED
