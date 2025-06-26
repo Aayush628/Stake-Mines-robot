@@ -91,7 +91,7 @@ await update.message.reply_text(
     Aapka account verify ho gaya hai");
 Please enter your client seed.
 
-⚠️ *Disclaimer:* Use this only with 3 mines.",
+"\u26A0\uFE0F Disclaimer: Use this only with 3 mines."
         parse_mode="Markdown"
     )
     return ENTER_CLIENT_SEED
