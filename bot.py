@@ -85,9 +85,10 @@ async def handle_passkey(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("❌ Invalid passkey. Please try again.")
         return ENTER_PASSKEY
 
-    await update.message.reply_text(
-        "✅ Passkey verified!
-
+    
+await update.message.reply_text(
+    "✅ Passkey verified! \
+    Aapka account verify ho gaya hai");
 Please enter your client seed.
 
 ⚠️ *Disclaimer:* Use this only with 3 mines.",
